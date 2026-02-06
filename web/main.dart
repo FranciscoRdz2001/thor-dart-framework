@@ -1,41 +1,89 @@
-import 'package:thor/thor.dart';
 import 'dart:html' as html;
 
-import 'package:web/web.dart' as web show window;
+import 'package:thor/thor.dart';
 
-// Componente de ejemplo
-class App extends WebComponent {
-  const App();
+/// A stateful counter component.
+class Counter extends StatefulComponent {
+  const Counter({super.key});
 
   @override
-  String get tag => 'div';
+  State<Counter> createState() => _CounterState();
+}
+
+class _CounterState extends State<Counter> {
+  int _count = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    print('Counter: initState');
+  }
+
+  @override
+  void didMount() {
+    print('Counter: didMount');
+  }
+
+  @override
+  void dispose() {
+    print('Counter: dispose');
+    super.dispose();
+  }
 
   @override
   Node build(BuildContext context) {
-    return ElementNode(tag: 'h1', children: [TextNode('Hello, Thorrr!')]);
+    return ElementNode(
+      tag: 'div',
+      attributes: {'class': 'counter'},
+      children: [
+        ElementNode(tag: 'h1', children: [TextNode('Hello, Thor!')]),
+        ElementNode(tag: 'p', children: [TextNode('Count: $_count')]),
+        ElementNode(
+          tag: 'button',
+          events: {'click': (_) => setState(() => _count++)},
+          children: [TextNode('Increment')],
+        ),
+        ElementNode(
+          tag: 'button',
+          events: {'click': (_) => setState(() => _count--)},
+          children: [TextNode('Decrement')],
+        ),
+      ],
+    );
+  }
+}
+
+/// Root app component using composition via ComponentNode.
+class App extends StatelessComponent {
+  const App({super.key});
+
+  @override
+  Node build(BuildContext context) {
+    return ElementNode(
+      tag: 'div',
+      attributes: {'id': 'root'},
+      children: [ComponentNode(const Counter())],
+    );
   }
 }
 
 void main() {
-  final html.Element? container = html.document.querySelector('#output');
+  final container = html.document.querySelector('#output');
 
   if (container == null) {
+    print('Error: #app container not found');
     return;
   }
 
   final target = DomTarget(
     root: const App(),
     container: container,
-    context: BuildContext(
-      breakpoint: Breakpoint.md,
-      size: Size(
-        web.window.innerWidth.toDouble(),
-        web.window.innerHeight.toDouble(),
-      ),
+    breakpoint: Breakpoint.md,
+    size: Size(
+      html.window.innerWidth!.toDouble(),
+      html.window.innerHeight!.toDouble(),
     ),
   );
 
   target.start();
-
-  // Ejemplo: rebuild en click
 }

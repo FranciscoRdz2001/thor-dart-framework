@@ -1,41 +1,42 @@
 import 'dart:html' as html;
 
-import 'package:thor/src/components/web_component.dart';
-import 'package:thor/src/core/build_context.dart';
-import 'package:thor/src/renderers/dom_renderer.dart';
-import 'package:thor/src/renderers/nodes/node.dart';
-import 'package:thor/src/renderers/thor_renderer.dart';
+import 'package:thor/src/components/component.dart';
+import 'package:thor/src/core/enums/breakpoint.dart';
+import 'package:thor/src/core/models/size.dart';
+import 'package:thor/src/runtime/thor_runtime.dart';
 
+/// Entry point for mounting a Thor app into a DOM container.
+///
+/// Creates a [ThorRuntime] that manages the element tree, scheduling,
+/// and DOM updates.
 class DomTarget {
   DomTarget({
     required this.root,
     required this.container,
-    required this.context,
-  });
+    required Breakpoint breakpoint,
+    required Size size,
+  }) : _runtime = ThorRuntime(
+          container: container,
+          breakpoint: breakpoint,
+          size: size,
+        );
 
-  final WebComponent root;
+  final Component root;
   final html.Element container;
-  final BuildContext context;
+  final ThorRuntime _runtime;
 
-  final ThorRenderer _renderer = const ThorRenderer();
-  final DomRenderer _domRenderer = const DomRenderer();
-
-  Node? _prevNode;
-  html.Node? _domRoot;
-
-  /// First render + mount
+  /// Mount the root component and render the initial DOM.
   void start() {
-    final node = _renderer.render(root, context);
-    _domRoot = _domRenderer.mount(node, container);
-    _prevNode = node;
+    _runtime.mount(root);
   }
 
-  /// Rebuild + patch
-  void rebuild() {
-    final newNode = _renderer.render(root, context);
+  /// Update viewport information and trigger responsive rebuilds.
+  void updateViewport(Breakpoint breakpoint, Size size) {
+    _runtime.updateViewport(breakpoint, size);
+  }
 
-    _domRoot = _domRenderer.patch(_prevNode!, newNode, _domRoot!);
-
-    _prevNode = newNode;
+  /// Tear down the element tree and clean up the DOM.
+  void dispose() {
+    _runtime.dispose();
   }
 }

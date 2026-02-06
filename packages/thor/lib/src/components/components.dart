@@ -1,5 +1,11 @@
+export 'component.dart';
 export 'element_component.dart';
+export 'error_boundary.dart';
+export 'inherited_component.dart';
 export 'leaf_element_component.dart';
 export 'multi_child_element_component.dart';
 export 'single_child_element_component.dart';
+export 'state.dart';
+export 'stateful_component.dart';
+export 'stateless_component.dart';
 export 'web_component.dart';

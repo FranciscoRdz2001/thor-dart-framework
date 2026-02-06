@@ -1,20 +1,24 @@
-import 'package:thor/src/components/web_component.dart';
+import 'package:thor/src/components/stateless_component.dart';
 import 'package:thor/src/core/build_context.dart';
+import 'package:thor/src/core/key.dart';
 import 'package:thor/src/renderers/nodes/element_node.dart';
 import 'package:thor/src/renderers/nodes/node.dart';
 
-abstract class MultiChildElementComponent extends WebComponent {
-  const MultiChildElementComponent();
+/// Convenience base for stateless components that produce an HTML element
+/// with multiple children.
+abstract class MultiChildElementComponent extends StatelessComponent {
+  const MultiChildElementComponent({Key? key}) : super(key: key);
 
+  String get tag;
   Map<String, String> get attrs => const {};
-  List<WebComponent> get children;
+  List<Node> get children;
 
   @override
   Node build(BuildContext context) {
     return ElementNode(
       tag: tag,
       attributes: attrs,
-      children: children.map((c) => c.build(context)).toList(),
+      children: children,
     );
   }
 }

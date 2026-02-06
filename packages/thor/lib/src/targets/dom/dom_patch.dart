@@ -4,6 +4,11 @@ import 'package:thor/src/renderers/nodes/element_node.dart';
 import 'package:thor/src/renderers/nodes/node.dart';
 import 'package:thor/src/renderers/nodes/text_node.dart';
 
+/// Legacy DOM patching algorithm.
+///
+/// The element tree (RenderElement) now handles DOM patching.
+/// This class is kept for backward compatibility only.
+@Deprecated('Use ThorRuntime and the element tree instead')
 class DomPatch {
   const DomPatch();
 

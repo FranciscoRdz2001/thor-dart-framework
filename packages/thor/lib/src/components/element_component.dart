@@ -1,20 +1,22 @@
-import 'package:thor/src/components/web_component.dart';
+import 'package:thor/src/components/stateless_component.dart';
 import 'package:thor/src/core/build_context.dart';
+import 'package:thor/src/core/key.dart';
 import 'package:thor/src/renderers/nodes/element_node.dart';
 import 'package:thor/src/renderers/nodes/node.dart';
 
-abstract class ElementComponent extends WebComponent {
-  const ElementComponent();
+/// Convenience base for stateless components that produce a single HTML element
+/// with attributes and children.
+abstract class ElementComponent extends StatelessComponent {
+  const ElementComponent({Key? key}) : super(key: key);
 
-  @override
   String get tag;
   Map<String, String> get attrs => const {};
-  List<WebComponent> get children => const [];
+  List<Node> get children => const [];
 
   @override
   Node build(BuildContext context) => ElementNode(
-    tag: tag,
-    attributes: attrs,
-    children: children.map((c) => c.build(context)).toList(),
-  );
+        tag: tag,
+        attributes: attrs,
+        children: children,
+      );
 }
