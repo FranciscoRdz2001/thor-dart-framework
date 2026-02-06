@@ -1,9 +1,9 @@
 import 'package:thor/src/core/enums/breakpoint.dart';
 import 'package:thor/src/core/models/size.dart';
 
-class WebContext {
+class BuildContext {
   final Breakpoint breakpoint;
   final Size size;
 
-  const WebContext({required this.breakpoint, required this.size});
+  const BuildContext({required this.breakpoint, required this.size});
 }
