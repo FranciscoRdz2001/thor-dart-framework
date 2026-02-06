@@ -1,8 +1,12 @@
-/// Support for doing something awesome.
+/// Thor - A declarative web component framework for Dart.
 ///
-/// More dartdocs go here.
+/// Thor provides a Flutter-like API for building web applications
+/// using a virtual DOM approach with efficient diffing and patching.
 library;
 
-export 'src/thor_base.dart';
-
-// TODO: Export any libraries intended for clients of this package.
+export 'src/annotations/annotations.dart';
+export 'src/components/components.dart';
+export 'src/core/core.dart';
+export 'src/layout/layout.dart';
+export 'src/renderers/renderers.dart';
+export 'src/targets/targets.dart';
