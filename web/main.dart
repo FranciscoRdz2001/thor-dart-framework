@@ -1,6 +1,7 @@
 import 'dart:html' as html;
 
 import 'package:thor/thor.dart';
+import 'package:thor_ui/thor_ui.dart';
 
 /// A stateful counter component.
 class Counter extends StatefulComponent {
@@ -31,11 +32,13 @@ class _CounterState extends State<Counter> {
   }
 
   @override
-  Node build(BuildContext context) {
+  Component build(BuildContext context) {
     return ElementNode(
       tag: 'div',
       attributes: {'class': 'counter'},
       children: [
+        Text('Welcome to Thor'),
+        Box(height: 100.px, width: 100.px, child: Text('This is a box')),
         ElementNode(tag: 'h1', children: [TextNode('Hello, Thor!')]),
         ElementNode(tag: 'p', children: [TextNode('Count: $_count')]),
         ElementNode(
@@ -58,11 +61,11 @@ class App extends StatelessComponent {
   const App({super.key});
 
   @override
-  Node build(BuildContext context) {
+  Component build(BuildContext context) {
     return ElementNode(
       tag: 'div',
       attributes: {'id': 'root'},
-      children: [ComponentNode(const Counter())],
+      children: [const Counter()],
     );
   }
 }

@@ -5,7 +5,6 @@ import 'package:thor/src/core/event_handler.dart';
 import 'package:thor/src/core/key.dart';
 import 'package:thor/src/elements/thor_element.dart';
 import 'package:thor/src/renderers/nodes/element_node.dart';
-import 'package:thor/src/renderers/nodes/node.dart';
 import 'package:thor/src/runtime/thor_runtime.dart';
 
 /// Stable wrapper that avoids removing/adding DOM listeners on every rebuild.
@@ -42,7 +41,7 @@ class RenderElement extends ThorElement {
     node.ref?.attach(_domElement!);
 
     for (final childNode in node.children) {
-      final childElement = inflateNode(childNode);
+      final childElement = inflateComponent(childNode);
       _children.add(childElement);
       childElement.visitDomNodes((domNode) {
         _domElement!.append(domNode);
@@ -136,7 +135,7 @@ class RenderElement extends ThorElement {
     }
   }
 
-  void _reconcileChildren(List<Node> oldNodes, List<Node> newNodes) {
+  void _reconcileChildren(List<Component> oldNodes, List<Component> newNodes) {
     // Fast path: same instance (const children)
     if (identical(oldNodes, newNodes)) return;
 
@@ -149,7 +148,7 @@ class RenderElement extends ThorElement {
     }
   }
 
-  static bool _anyKeyed(List<Node> nodes) {
+  static bool _anyKeyed(List<Component> nodes) {
     for (final n in nodes) {
       if (n.key != null) return true;
     }
@@ -157,7 +156,7 @@ class RenderElement extends ThorElement {
   }
 
   /// Simple index-based reconciliation (no keys). Zero allocations for maps.
-  void _reconcileUnkeyedChildren(List<Node> oldNodes, List<Node> newNodes) {
+  void _reconcileUnkeyedChildren(List<Component> oldNodes, List<Component> newNodes) {
     final commonLen =
         oldNodes.length < newNodes.length ? oldNodes.length : newNodes.length;
 
@@ -169,7 +168,7 @@ class RenderElement extends ThorElement {
         oldChild.update(newNode);
       } else {
         oldChild.unmount();
-        final created = inflateNode(newNode);
+        final created = inflateComponent(newNode);
         _children[i] = created;
         // Replace in DOM
         oldChild.visitDomNodes((old) {
@@ -183,7 +182,7 @@ class RenderElement extends ThorElement {
     // Append new children
     if (newNodes.length > oldNodes.length) {
       for (var i = oldNodes.length; i < newNodes.length; i++) {
-        final created = inflateNode(newNodes[i]);
+        final created = inflateComponent(newNodes[i]);
         _children.add(created);
         created.visitDomNodes((domNode) {
           _domElement!.append(domNode);
@@ -201,7 +200,7 @@ class RenderElement extends ThorElement {
   }
 
   /// Key-based reconciliation for reorderable lists.
-  void _reconcileKeyedChildren(List<Node> oldNodes, List<Node> newNodes) {
+  void _reconcileKeyedChildren(List<Component> oldNodes, List<Component> newNodes) {
     final Map<Key, int> keyedOldIndices = {};
     final List<bool> oldUsed = List.filled(oldNodes.length, false);
 

@@ -5,7 +5,6 @@ import 'package:thor/src/components/error_boundary.dart';
 import 'package:thor/src/components/stateful_component.dart';
 import 'package:thor/src/components/state.dart';
 import 'package:thor/src/elements/thor_element.dart';
-import 'package:thor/src/renderers/nodes/node.dart';
 import 'package:thor/src/renderers/nodes/text_node.dart';
 import 'package:thor/src/runtime/thor_runtime.dart';
 
@@ -41,7 +40,7 @@ class StatefulElement extends ThorElement {
   }
 
   void _rebuild() {
-    Node built;
+    Component built;
     try {
       built = _state.build(this);
     } catch (error, stackTrace) {
@@ -65,7 +64,7 @@ class StatefulElement extends ThorElement {
     super.unmount();
   }
 
-  Node _handleBuildError(Object error, StackTrace stackTrace) {
+  Component _handleBuildError(Object error, StackTrace stackTrace) {
     // Walk up to find ErrorBoundary element
     ThorElement? current = parent;
     while (current != null) {

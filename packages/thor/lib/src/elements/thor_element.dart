@@ -6,7 +6,6 @@ import 'package:thor/src/core/build_context.dart';
 import 'package:thor/src/core/enums/breakpoint.dart';
 import 'package:thor/src/core/models/size.dart';
 import 'package:thor/src/elements/inherited_element.dart';
-import 'package:thor/src/renderers/nodes/node.dart';
 import 'package:thor/src/runtime/thor_runtime.dart';
 
 /// Base class for all elements in the Thor element tree.
@@ -101,28 +100,28 @@ abstract class ThorElement implements BuildContext {
     runtimeRef = null;
   }
 
-  /// Reconcile a child slot: given an old element (nullable) and a new node,
+  /// Reconcile a child slot: given an old element and a new component,
   /// return the element to use for that slot.
-  ThorElement? updateChild(ThorElement? oldChild, Node? newNode) {
-    if (newNode == null) {
+  ThorElement? updateChild(ThorElement? oldChild, Component? newComponent) {
+    if (newComponent == null) {
       if (oldChild != null) {
         oldChild.unmount();
       }
       return null;
     }
     if (oldChild != null) {
-      if (oldChild.component.canUpdate(newNode)) {
-        oldChild.update(newNode);
+      if (oldChild.component.canUpdate(newComponent)) {
+        oldChild.update(newComponent);
         return oldChild;
       }
       oldChild.unmount();
     }
-    return inflateNode(newNode);
+    return inflateComponent(newComponent);
   }
 
-  /// Create a new element subtree from a node.
-  ThorElement inflateNode(Node node) {
-    final element = node.createElement();
+  /// Create a new element subtree from a component.
+  ThorElement inflateComponent(Component comp) {
+    final element = comp.createElement();
     element.mount(this, runtime);
     return element;
   }

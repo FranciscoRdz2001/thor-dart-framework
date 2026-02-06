@@ -1,8 +1,9 @@
-/// Support for doing something awesome.
+/// Thor UI - A comprehensive UI component library for Thor framework.
 ///
-/// More dartdocs go here.
+/// Provides a collection of reusable UI components, styles, and properties
+/// to build beautiful web applications with Thor.
 library;
 
-export 'src/thor_ui_base.dart';
-
-// TODO: Export any libraries intended for clients of this package.
+export 'src/components/components.dart';
+export 'src/properties/properties.dart';
+export 'src/styles/styles.dart';

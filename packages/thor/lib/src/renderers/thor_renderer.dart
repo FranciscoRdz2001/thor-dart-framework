@@ -1,6 +1,6 @@
+import 'package:thor/src/components/component.dart';
 import 'package:thor/src/components/stateless_component.dart';
 import 'package:thor/src/core/build_context.dart';
-import 'package:thor/src/renderers/nodes/node.dart';
 
 /// Legacy renderer that directly calls component.build().
 ///
@@ -10,7 +10,7 @@ import 'package:thor/src/renderers/nodes/node.dart';
 class ThorRenderer {
   const ThorRenderer();
 
-  Node render(StatelessComponent root, BuildContext context) {
+  Component render(StatelessComponent root, BuildContext context) {
     return root.build(context);
   }
 }

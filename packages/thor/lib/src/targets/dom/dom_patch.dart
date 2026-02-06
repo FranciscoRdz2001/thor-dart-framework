@@ -1,5 +1,6 @@
 import 'dart:html' as html;
 
+import 'package:thor/src/components/component.dart';
 import 'package:thor/src/renderers/nodes/element_node.dart';
 import 'package:thor/src/renderers/nodes/node.dart';
 import 'package:thor/src/renderers/nodes/text_node.dart';
@@ -55,7 +56,7 @@ class DomPatch {
         final el = html.Element.tag(tag);
         attributes.forEach(el.setAttribute);
         for (final child in children) {
-          el.append(_createDom(child));
+          el.append(_createDom(child as Node));
         }
         return el;
       default:
@@ -83,8 +84,8 @@ class DomPatch {
 
   void _patchChildren(
     html.Element el,
-    List<Node> oldChildren,
-    List<Node> newChildren,
+    List<Component> oldChildren,
+    List<Component> newChildren,
   ) {
     final domChildren = el.childNodes;
 
@@ -93,13 +94,13 @@ class DomPatch {
         : newChildren.length;
 
     for (var i = 0; i < common; i++) {
-      patch(oldChildren[i], newChildren[i], domChildren[i]);
+      patch(oldChildren[i] as Node, newChildren[i] as Node, domChildren[i]);
     }
 
     // Add new children
     if (newChildren.length > oldChildren.length) {
       for (var i = oldChildren.length; i < newChildren.length; i++) {
-        el.append(_createDom(newChildren[i]));
+        el.append(_createDom(newChildren[i] as Node));
       }
     }
 

@@ -8,4 +8,3 @@ export 'single_child_element_component.dart';
 export 'state.dart';
 export 'stateful_component.dart';
 export 'stateless_component.dart';
-export 'web_component.dart';

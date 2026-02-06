@@ -1,14 +1,14 @@
+import 'package:thor/src/components/component.dart';
 import 'package:thor/src/components/state.dart';
 import 'package:thor/src/components/stateful_component.dart';
 import 'package:thor/src/core/build_context.dart';
-import 'package:thor/src/renderers/nodes/node.dart';
 import 'package:thor/src/renderers/nodes/text_node.dart';
 
 /// A component that catches errors during build of its child subtree
 /// and displays a fallback UI instead of crashing the entire app.
 class ErrorBoundary extends StatefulComponent {
-  final Node child;
-  final Node Function(Object error, StackTrace stackTrace)? fallbackBuilder;
+  final Component child;
+  final Component Function(Object error, StackTrace stackTrace)? fallbackBuilder;
 
   const ErrorBoundary({
     super.key,
@@ -42,7 +42,7 @@ class ErrorBoundaryState extends State<ErrorBoundary> {
   }
 
   @override
-  Node build(BuildContext context) {
+  Component build(BuildContext context) {
     if (_error != null) {
       return component.fallbackBuilder?.call(_error!, _stackTrace!) ??
           TextNode('Error: $_error');

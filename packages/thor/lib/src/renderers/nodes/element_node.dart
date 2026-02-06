@@ -12,7 +12,7 @@ class ElementNode extends Node {
   final String tag;
   final Map<String, String> attributes;
   final Map<String, EventHandler> events;
-  final List<Node> children;
+  final List<Component> children;
   final Ref<html.Element>? ref;
 
   const ElementNode({

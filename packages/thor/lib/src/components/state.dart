@@ -1,7 +1,7 @@
+import 'package:thor/src/components/component.dart';
 import 'package:thor/src/components/stateful_component.dart';
 import 'package:thor/src/core/build_context.dart';
 import 'package:thor/src/elements/stateful_element.dart';
-import 'package:thor/src/renderers/nodes/node.dart';
 
 /// Mutable state for a [StatefulComponent].
 ///
@@ -44,5 +44,5 @@ abstract class State<T extends StatefulComponent> {
   }
 
   /// Describes the UI for this component given the current state.
-  Node build(BuildContext context);
+  Component build(BuildContext context);
 }

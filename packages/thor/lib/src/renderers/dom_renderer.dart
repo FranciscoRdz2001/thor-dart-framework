@@ -23,7 +23,7 @@ class DomRenderer {
         final el = html.Element.tag(tag);
         attributes.forEach(el.setAttribute);
         for (final child in children) {
-          el.append(createDom(child));
+          el.append(createDom(child as Node));
         }
         return el;
       default:
