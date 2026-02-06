@@ -1,13 +1,13 @@
 import 'package:thor/thor.dart';
-import 'package:thor_ui/src/properties/containers/box_decoration.dart';
-part 'decorated_box.g.dart';
+import 'package:thor_ui/thor_ui.dart';
+part 'constrained_box.g.dart';
 
 @ComponentAnnotation('div')
-class DecoratedBox extends SingleChildElementComponent {
-  const DecoratedBox({super.key, super.child, this.decoration});
-
+class ConstrainedBox extends SingleChildElementComponent {
   @StyleAnnotation()
-  final BoxDecoration? decoration;
+  final BoxConstraints constraints;
+
+  const ConstrainedBox({super.key, required this.constraints, super.child});
 
   @override
   Component build(BuildContext context) {

@@ -1,6 +1,7 @@
 import 'package:thor/thor.dart';
 import 'package:thor_ui/src/styles/types/cross_axis_alignment.dart';
 import 'package:thor_ui/src/styles/types/main_axis_alignment.dart';
+import 'package:thor_ui/src/styles/types/main_axis_size.dart';
 import 'package:thor_ui/src/styles/types/flex_direction.dart';
 part 'flex.g.dart';
 
@@ -10,6 +11,7 @@ class Flex extends MultiChildElementComponent {
     this.direction, {
     this.mainAxisAlignment = MainAxisAlignment.start,
     this.crossAxisAlignment = CrossAxisAlignment.start,
+    this.mainAxisSize = MainAxisSize.max,
     this.gap,
     this.display = 'flex',
     super.key,
@@ -26,6 +28,8 @@ class Flex extends MultiChildElementComponent {
   final CrossAxisAlignment crossAxisAlignment;
   @PropertyAnnotation('gap')
   final Unit? gap;
+
+  final MainAxisSize mainAxisSize;
 
   final List<Component> _children;
 

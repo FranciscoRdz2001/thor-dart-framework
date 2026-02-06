@@ -13,7 +13,7 @@ class Expanded extends SingleChildElementComponent {
     return ElementNode(
       tag: _$tag,
       children: children,
-      attributes: {'style': ?_$styles},
+      attributes: {..._$attributes, 'style': ?_$styles},
     );
   }
 }

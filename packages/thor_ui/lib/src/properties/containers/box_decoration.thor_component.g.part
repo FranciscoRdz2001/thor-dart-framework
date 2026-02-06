@@ -1,0 +1,10 @@
+// **************************************************************************
+// ThorComponentGenerator
+// **************************************************************************
+
+extension BoxDecorationCss on BoxDecoration {
+  String toCss() => [
+    if (borderRadius != null) borderRadius!.toCss(),
+    if (color != null) 'background-color: ${color!.value}',
+  ].where((s) => s.isNotEmpty).join('; ');
+}

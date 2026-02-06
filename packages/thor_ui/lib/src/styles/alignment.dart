@@ -16,8 +16,6 @@ enum Alignment with ToStyleMixin {
   final String justifyContent;
 
   @override
-  String toStyle() => 'flex';
-
-  String toCss() =>
-      'display: flex; align-items: $alignItems; justify-content: $justifyContent';
+  String toStyle() =>
+      'flex; flex: 1; align-items: $alignItems; justify-content: $justifyContent';
 }

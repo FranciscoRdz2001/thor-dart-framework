@@ -1,14 +1,13 @@
 import 'package:thor/thor.dart';
-import 'package:thor_ui/src/properties/containers/box_decoration.dart';
-part 'decorated_box.g.dart';
+import 'package:thor_ui/thor_ui.dart';
+part 'padding.g.dart';
 
 @ComponentAnnotation('div')
-class DecoratedBox extends SingleChildElementComponent {
-  const DecoratedBox({super.key, super.child, this.decoration});
-
+class Padding extends SingleChildElementComponent {
   @StyleAnnotation()
-  final BoxDecoration? decoration;
+  final EdgeInsets padding;
 
+  const Padding({super.key, required this.padding, super.child});
   @override
   Component build(BuildContext context) {
     return ElementNode(

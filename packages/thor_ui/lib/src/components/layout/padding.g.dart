@@ -1,23 +1,17 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'column.dart';
+part of 'padding.dart';
 
 // **************************************************************************
 // ThorComponentGenerator
 // **************************************************************************
 
-extension _$ColumnGenerated on Column {
+extension _$PaddingGenerated on Padding {
   String get _$tag => 'div';
   String get _$className => runtimeType.toString();
   Map<String, String> get _$attributes => {'class': _$className};
   String? get _$styles {
-    final parts = <String>[
-      'display: ${display}',
-      'flex-direction: ${direction.toStyle()}',
-      'justify-content: ${mainAxisAlignment.toStyle()}',
-      'align-items: ${crossAxisAlignment.toStyle()}',
-      if (gap != null) 'gap: ${gap!.toStyle()}',
-    ].where((s) => s.isNotEmpty);
+    final parts = <String>[padding.toCss()].where((s) => s.isNotEmpty);
     return parts.isEmpty ? null : parts.join('; ');
   }
 }

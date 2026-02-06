@@ -5,3 +5,4 @@
 library;
 
 export 'containers/containers.dart';
+export 'text/text.dart';

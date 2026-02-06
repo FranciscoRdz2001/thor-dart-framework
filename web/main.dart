@@ -12,7 +12,7 @@ class Counter extends StatefulComponent {
 }
 
 class _CounterState extends State<Counter> {
-  int _count = 0;
+  final int _count = 0;
 
   @override
   void initState() {
@@ -33,31 +33,48 @@ class _CounterState extends State<Counter> {
 
   @override
   Component build(BuildContext context) {
-    print('${context.breakpoint}');
     return Row(
-      gap: 20.px,
-      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Text('Welcome to Thor'),
+        Text('Counter: $_count'),
         Expanded(
-          child: Box(
-            alignment: Alignment.center,
-            padding: EdgeInsets.symmetric(vertical: 50.px),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(12.px),
-              color: Color.red,
-            ),
-            child: Text('This is a box'),
-          ),
-        ),
+          child: Row(
+            gap: 20.px,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text('Welcome to Thor'),
+              Box(
+                alignment: Alignment.center,
+                padding: EdgeInsets.symmetric(vertical: 50.px),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(12.px),
+                  color: Color.red,
+                ),
+                child: Text(
+                  'This is a box',
+                  style: TextStyle(
+                    fontSize: 24.px,
+                    color: Color.white,
+                    fontWeight: FontWeight.extraBold,
+                  ),
+                ),
+              ),
 
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text('Counter: $_count'),
-            Text('--------Counter: $_count --------'),
-            Text('---------------- Counter: $_count ----------------'),
-          ],
+              DecoratedBox(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(8.px),
+                  color: Color.blue,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text('Counter: $_count'),
+                    Text('--------Counter: $_count --------'),
+                    Text('---------------- Counter: $_count ----------------'),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ],
     );

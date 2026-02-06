@@ -1,4 +1,5 @@
 import 'package:thor/thor.dart';
+import 'package:thor_ui/src/properties/containers/box_constraints.dart';
 import 'package:thor_ui/thor_ui.dart';
 part 'box.g.dart';
 
@@ -10,11 +11,14 @@ class Box extends DecoratedBox {
   @PropertyAnnotation('width')
   final Unit? width;
 
-  @PropertyAnnotation('display', isStyle: true)
+  @StyleAnnotation()
   final Alignment? alignment;
 
   @StyleAnnotation()
   final EdgeInsets? padding;
+
+  @StyleAnnotation()
+  final BoxConstraints? constraints;
 
   const Box({
     super.key,
@@ -23,6 +27,7 @@ class Box extends DecoratedBox {
     this.padding,
     super.child,
     super.decoration,
+    this.constraints,
     this.alignment,
   });
 
@@ -31,7 +36,7 @@ class Box extends DecoratedBox {
     return ElementNode(
       tag: _$tag,
       children: children,
-      attributes: {'style': ?_$styles},
+      attributes: {..._$attributes, 'style': ?_$styles},
     );
   }
 }

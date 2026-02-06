@@ -8,6 +8,8 @@ part of 'row.dart';
 
 extension _$RowGenerated on Row {
   String get _$tag => 'div';
+  String get _$className => runtimeType.toString();
+  Map<String, String> get _$attributes => {'class': _$className};
   String? get _$styles {
     final parts = <String>[
       'display: ${display}',

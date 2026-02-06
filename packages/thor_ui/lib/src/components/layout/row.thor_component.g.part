@@ -1,12 +1,8 @@
-// GENERATED CODE - DO NOT MODIFY BY HAND
-
-part of 'column.dart';
-
 // **************************************************************************
 // ThorComponentGenerator
 // **************************************************************************
 
-extension _$ColumnGenerated on Column {
+extension _$RowGenerated on Row {
   String get _$tag => 'div';
   String get _$className => runtimeType.toString();
   Map<String, String> get _$attributes => {'class': _$className};

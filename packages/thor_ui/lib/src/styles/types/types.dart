@@ -1,4 +1,10 @@
 export 'alignment.dart';
 export 'flex_direction.dart';
 export 'main_axis_alignment.dart';
+export 'main_axis_size.dart';
 export 'cross_axis_alignment.dart';
+export 'text_align.dart';
+export 'font_weight.dart';
+export 'text_overflow.dart';
+export 'font_style.dart';
+export 'text_decoration.dart';

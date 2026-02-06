@@ -8,6 +8,8 @@ part of 'flex.dart';
 
 extension _$FlexGenerated on Flex {
   String get _$tag => 'div';
+  String get _$className => runtimeType.toString();
+  Map<String, String> get _$attributes => {'class': _$className};
   String? get _$styles {
     final parts = <String>[
       'display: ${display}',

@@ -1,0 +1,12 @@
+// **************************************************************************
+// ThorComponentGenerator
+// **************************************************************************
+
+extension EdgeInsetsCss on EdgeInsets {
+  String toCss() => [
+    if (top != null) 'padding-top: ${top!.toStyle()}',
+    if (right != null) 'padding-right: ${right!.toStyle()}',
+    if (bottom != null) 'padding-bottom: ${bottom!.toStyle()}',
+    if (left != null) 'padding-left: ${left!.toStyle()}',
+  ].where((s) => s.isNotEmpty).join('; ');
+}

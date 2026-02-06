@@ -98,13 +98,14 @@ extension ${className}Css on $className {
     return buffer.toString();
   }
 
-  /// Generates `_$attributes` — only simple types (String, int, bool, etc.)
-  /// that map to HTML attributes like `class`, `id`, `href`.
+  /// Generates `_$attributes` — always includes the runtime type as CSS class,
+  /// plus simple types (String, int, bool, etc.) that map to HTML attributes.
   void _generateAttributesGetter(
     StringBuffer buffer,
     ClassElement classElement,
   ) {
     final entries = <String>[];
+    String? userClassField;
 
     for (final field in _getAllFields(classElement)) {
       if (field.isStatic || field.isSynthetic) continue;
@@ -115,6 +116,25 @@ extension ${className}Css on $className {
 
       // If the type has toStyle()/toCss(), or is explicitly marked as style → skip here
       if (_isStyleType(field.type) || _isPropertyMarkedAsStyle(field)) continue;
+
+      // Track if user has a 'class' field to merge with auto-generated type
+      if (attrName == 'class') {
+        final isNullable =
+            field.type.nullabilitySuffix == NullabilitySuffix.question;
+        final isString = field.type.isDartCoreString;
+        if (isNullable) {
+          userClassField = isString
+              ? '${field.name}!'
+              : '${field.name}!.toString()';
+          entries.add(
+            "if (${field.name} != null) 'class': '\$_\$className \${$userClassField}' else 'class': _\$className",
+          );
+        } else {
+          userClassField = isString ? field.name : '${field.name}.toString()';
+          entries.add("'class': '\$_\$className \$$userClassField'");
+        }
+        continue;
+      }
 
       final isNullable =
           field.type.nullabilitySuffix == NullabilitySuffix.question;
@@ -131,8 +151,12 @@ extension ${className}Css on $className {
       }
     }
 
-    if (entries.isEmpty) return;
+    // Always add 'class' with runtime type if user didn't define one
+    if (userClassField == null) {
+      entries.insert(0, "'class': _\$className");
+    }
 
+    buffer.writeln("  String get _\$className => runtimeType.toString();");
     buffer.writeln('  Map<String, String> get _\$attributes => {');
     for (final entry in entries) {
       buffer.writeln('    $entry,');
