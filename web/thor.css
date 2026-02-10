@@ -1,28 +1,14 @@
-.row {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
+.row { display:flex; flex-direction:row; min-width:0; align-items: stretch; }
+.column { display:flex; flex-direction:column; min-width:0; align-items: stretch; }
 
-.column {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
 
-.center {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex: 1;
-}
+.center { display:flex; justify-content:center; align-items:center; }
 
-.expanded {
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
-  min-height: 0;
-}
+.center-expand { display:flex; justify-content:center; align-items:center; flex:1 1 0; min-width:0; }
+
+
+.expanded { flex: 1 1 0; min-width: 0; min-height: 0; }
+
 
 .constrained-box {
   display: flex;
@@ -74,13 +60,8 @@
   justify-content: space-evenly;
 }
 
-.main-axis-size-max {
-  align-self: stretch;
-}
-
-.main-axis-size-min {
-  align-self: auto;
-}
+.main-axis-size-max { align-self: stretch; }
+.main-axis-size-min { align-self: auto; }
 
 /* Alignment Class */
 .align-top-left {
@@ -128,3 +109,21 @@
   justify-content: flex-end;
 }
 
+/* Stack */
+.stack { position: relative; }
+
+/* Todos los hijos se colocan encima Y llenan el ancho del stack */
+.stack > * {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;   /* 👈 esto les da ancho */
+}
+
+/* El primero define el tamaño del stack */
+.stack > *:first-child {
+  position: relative;
+}
+
+
+.positioned { position: relative; }

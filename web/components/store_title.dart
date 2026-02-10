@@ -25,12 +25,57 @@ class StoreTitle extends StatelessComponent {
         ),
 
         Expanded(
-          child: Box(
-            height: 500.px,
-            decoration: BoxDecoration(
-              color: Color.blue,
-              borderRadius: BorderRadius.all(12.px),
-            ),
+          child: Stack(
+            children: [
+              Box(
+                height: 500.px,
+                decoration: BoxDecoration(
+                  color: Color.blue,
+                  borderRadius: BorderRadius.all(12.px),
+                ),
+              ),
+
+              Column(
+                children: [
+                  Box(
+                    height: 200.px,
+                    decoration: BoxDecoration(
+                      color: Color.green,
+                      borderRadius: BorderRadius.all(12.px),
+                    ),
+                    child: Text(
+                      'Special Offer!',
+                      style: TextStyle(
+                        fontSize: 24.px,
+                        color: Color.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              Positioned(
+                position: Position.absolute,
+                left: 20.px,
+
+                child: Box(
+                  width: 100.px,
+                  height: 100.px,
+                  decoration: BoxDecoration(
+                    color: Color.darkGrey,
+                    borderRadius: BorderRadius.all(12.px),
+                  ),
+                  child: Text(
+                    'New!',
+                    style: TextStyle(
+                      fontSize: 16.px,
+                      color: Color.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ],

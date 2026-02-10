@@ -1,0 +1,8 @@
+builders:
+  thor_component:
+    import: "package:thor/src/core/generator/builder.dart"
+    builder_factories: ["thorComponentBuilder"]
+    build_extensions: {".dart": [".g.dart"]}
+    auto_apply: dependents
+    build_to: source
+    applies_builders: ["source_gen|combining_builder"]

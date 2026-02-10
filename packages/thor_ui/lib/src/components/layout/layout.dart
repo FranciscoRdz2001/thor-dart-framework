@@ -5,3 +5,5 @@ export 'expanded.dart';
 export 'constrained_box.dart';
 export 'center.dart';
 export 'padding.dart';
+export 'stack.dart';
+export 'positioned.dart';
