@@ -8,6 +8,6 @@ part of 'center.dart';
 
 extension _$CenterGenerated on Center {
   String get _$tag => 'div';
-  String get _$className => runtimeType.toString();
+  String get _$className => 'center';
   Map<String, String> get _$attributes => {'class': _$className};
 }

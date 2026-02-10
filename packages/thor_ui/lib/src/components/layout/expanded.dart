@@ -1,7 +1,7 @@
 import 'package:thor/thor.dart';
 part 'expanded.g.dart';
 
-@ComponentAnnotation('div')
+@ComponentAnnotation('div', className: '.expanded')
 class Expanded extends SingleChildElementComponent {
   @PropertyAnnotation('flex', isStyle: true)
   final int flex;
@@ -10,10 +10,11 @@ class Expanded extends SingleChildElementComponent {
 
   @override
   Component build(BuildContext context) {
+    final styles = [_$styles].whereType<String>().join('; ');
     return ElementNode(
       tag: _$tag,
       children: children,
-      attributes: {..._$attributes, 'style': ?_$styles},
+      attributes: {'style': styles},
     );
   }
 }

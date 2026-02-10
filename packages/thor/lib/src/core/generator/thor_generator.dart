@@ -156,7 +156,12 @@ extension ${className}Css on $className {
       entries.insert(0, "'class': _\$className");
     }
 
-    buffer.writeln("  String get _\$className => runtimeType.toString();");
+    final customClassName = _getComponentClassName(classElement);
+    if (customClassName != null) {
+      buffer.writeln("  String get _\$className => '$customClassName';");
+    } else {
+      buffer.writeln("  String get _\$className => runtimeType.toString();");
+    }
     buffer.writeln('  Map<String, String> get _\$attributes => {');
     for (final entry in entries) {
       buffer.writeln('    $entry,');
@@ -290,6 +295,20 @@ extension ${className}Css on $className {
           annotationElement.enclosingElement3.name == 'ComponentAnnotation') {
         final value = meta.computeConstantValue();
         return value?.getField('tag')?.toStringValue();
+      }
+    }
+    return null;
+  }
+
+  String? _getComponentClassName(ClassElement element) {
+    for (final meta in element.metadata) {
+      final annotationElement = meta.element;
+      if (annotationElement is ConstructorElement &&
+          annotationElement.enclosingElement3.name == 'ComponentAnnotation') {
+        final value = meta.computeConstantValue();
+        final className = value?.getField('className')?.toStringValue();
+        if (className == null) return null;
+        return className.startsWith('.') ? className.substring(1) : className;
       }
     }
     return null;

@@ -2,7 +2,7 @@ import 'package:thor/thor.dart';
 import 'package:thor_ui/thor_ui.dart';
 part 'constrained_box.g.dart';
 
-@ComponentAnnotation('div')
+@ComponentAnnotation('div', className: '.constrained-box')
 class ConstrainedBox extends SingleChildElementComponent {
   @StyleAnnotation()
   final BoxConstraints constraints;

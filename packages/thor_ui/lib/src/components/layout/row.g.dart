@@ -8,14 +8,10 @@ part of 'row.dart';
 
 extension _$RowGenerated on Row {
   String get _$tag => 'div';
-  String get _$className => runtimeType.toString();
+  String get _$className => 'row';
   Map<String, String> get _$attributes => {'class': _$className};
   String? get _$styles {
     final parts = <String>[
-      'display: ${display}',
-      'flex-direction: ${direction.toStyle()}',
-      'justify-content: ${mainAxisAlignment.toStyle()}',
-      'align-items: ${crossAxisAlignment.toStyle()}',
       if (gap != null) 'gap: ${gap!.toStyle()}',
     ].where((s) => s.isNotEmpty);
     return parts.isEmpty ? null : parts.join('; ');

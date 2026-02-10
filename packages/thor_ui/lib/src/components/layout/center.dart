@@ -1,7 +1,7 @@
 import 'package:thor/thor.dart';
 part 'center.g.dart';
 
-@ComponentAnnotation('div')
+@ComponentAnnotation('div', className: '.center')
 class Center extends SingleChildElementComponent {
   const Center({super.key, required super.child});
   @override
@@ -9,11 +9,7 @@ class Center extends SingleChildElementComponent {
     return ElementNode(
       tag: _$tag,
       children: children,
-      attributes: {
-        ..._$attributes,
-        'style':
-            'display: flex; justify-content: center; align-items: center; flex: 1',
-      },
+      attributes: _$attributes,
     );
   }
 }
