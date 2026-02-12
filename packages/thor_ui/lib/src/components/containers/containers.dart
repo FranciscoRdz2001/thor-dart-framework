@@ -1,2 +1,2 @@
 export 'box.dart';
-export 'decorated_box.dart';
+export 'page.dart';

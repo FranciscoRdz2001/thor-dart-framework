@@ -7,17 +7,18 @@ import '../components/store_collections.dart';
 class StorePage extends StatelessComponent {
   @override
   Component build(BuildContext context) {
-    return Center(
-      child: ConstrainedBox(
-        constraints: BoxConstraints(maxWidth: 1200.px),
+    return Box(
+      alignment: Alignment.center,
+      size: SizeStyle(maxWidth: 1000.px),
+      child: Box(
         child: Column(
           children: [
             StoreHeader(),
-            Box(height: 40.px),
+            Box(size: SizeStyle(height: 40.px)),
             StoreTitle(),
-            Box(height: 40.px),
+            Box(size: SizeStyle(height: 40.px)),
             StoreCollections(),
-            Box(height: 100.px),
+            Box(size: SizeStyle(height: 100.px)),
           ],
         ),
       ),

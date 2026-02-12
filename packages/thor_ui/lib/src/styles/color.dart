@@ -1,4 +1,6 @@
-class Color {
+import 'package:thor/thor.dart';
+
+class Color with ToStyleMixin {
   final String value;
 
   const Color(this.value);
@@ -18,4 +20,7 @@ class Color {
   static const grey = Color('#808080');
   static const lightGrey = Color('#D3D3D3');
   static const darkGrey = Color('#404040');
+
+  @override
+  String toStyle() => value;  
 }

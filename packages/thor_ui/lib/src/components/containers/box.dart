@@ -3,30 +3,25 @@ import 'package:thor_ui/thor_ui.dart';
 part 'box.g.dart';
 
 @ComponentAnnotation('div')
-class Box extends DecoratedBox {
-  @StylePropertyAnnotation('height')
-  final Unit? height;
-
-  @StylePropertyAnnotation('width')
-  final Unit? width;
-
+class Box extends SingleChildElementComponent {
   @ClassNameAnnotation()
   final Alignment? alignment;
 
   @StyleAnnotation()
-  final EdgeInsets? padding;
+  final SpacingStyle? spacing;
 
   @StyleAnnotation()
-  final BoxConstraints? constraints;
+  final SizeStyle? size;
+
+  @StyleAnnotation()
+  final DecorationStyle? decoration;
 
   const Box({
     super.key,
-    this.height,
-    this.width,
-    this.padding,
+    this.spacing,
     super.child,
-    super.decoration,
-    this.constraints,
+    this.decoration,
+    this.size,
     this.alignment,
   });
 

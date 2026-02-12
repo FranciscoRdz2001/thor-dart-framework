@@ -1,15 +1,22 @@
 import 'package:thor/thor.dart';
-import 'package:thor_ui/src/properties/text/text_style.dart';
+import 'package:thor_ui/thor_ui.dart';
 
 part 'text.g.dart';
 
 @ComponentAnnotation('span')
 class Text extends LeafElementComponent {
   final String data;
-  const Text(this.data, {super.key, this.style});
+  const Text(
+    this.data, {
+    super.key,
+    this.typoGraphyStyle,
+    this.interactionStyle,
+  });
 
   @StyleAnnotation()
-  final TextStyle? style;
+  final TypographyStyle? typoGraphyStyle;
+  @StyleAnnotation()
+  final InteractionStyle? interactionStyle;
 
   @override
   Component build(BuildContext context) {

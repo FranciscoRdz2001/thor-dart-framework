@@ -4,8 +4,13 @@
 /// for creating consistent and beautiful user interfaces.
 library;
 
-export 'types/alignment.dart';
-export 'border_radius.dart';
+// Base & Categories
+export 'thor_style.dart';
+export 'categories/categories.dart';
+
+// Value types
+export 'box_shadow.dart';
 export 'color.dart';
-export 'edge_inset.dart';
+
+// Types (enums)
 export 'types/types.dart';

@@ -8,7 +8,7 @@ html, body {
   font-family: 'Roboto', sans-serif;
 }
 
-#output {
+#body {
   display: flex;
   flex-direction: column;
   height: 100%;

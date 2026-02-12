@@ -14,11 +14,17 @@ class StoreTitle extends StatelessComponent {
             children: [
               Text(
                 'Welcome to My Store',
-                style: TextStyle(fontSize: 32.px, fontWeight: FontWeight.bold),
+                typoGraphyStyle: TypographyStyle(
+                  fontSize: 32.px,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               Text(
                 'Find the best products here!',
-                style: TextStyle(fontSize: 18.px, color: Color.grey),
+                typoGraphyStyle: TypographyStyle(
+                  fontSize: 18.px,
+                  color: Color.grey,
+                ),
               ),
             ],
           ),
@@ -28,24 +34,18 @@ class StoreTitle extends StatelessComponent {
           child: Stack(
             children: [
               Box(
-                height: 500.px,
-                decoration: BoxDecoration(
-                  color: Color.blue,
-                  borderRadius: BorderRadius.all(12.px),
-                ),
+                size: SizeStyle(width: 500.px, height: 200.px),
+                decoration: DecorationStyle(backgroundColor: Color.blue),
               ),
 
               Column(
                 children: [
                   Box(
-                    height: 200.px,
-                    decoration: BoxDecoration(
-                      color: Color.green,
-                      borderRadius: BorderRadius.all(12.px),
-                    ),
+                    size: SizeStyle(height: 200.px),
+                    decoration: DecorationStyle(backgroundColor: Color.red),
                     child: Text(
                       'Special Offer!',
-                      style: TextStyle(
+                      typoGraphyStyle: TypographyStyle(
                         fontSize: 24.px,
                         color: Color.white,
                         fontWeight: FontWeight.bold,
@@ -59,20 +59,28 @@ class StoreTitle extends StatelessComponent {
                 left: 20.px,
 
                 child: Box(
-                  width: 100.px,
-                  height: 100.px,
-                  decoration: BoxDecoration(
-                    color: Color.darkGrey,
-                    borderRadius: BorderRadius.all(12.px),
-                  ),
+                  size: SizeStyle(width: 100.px, height: 100.px),
+                  decoration: DecorationStyle(backgroundColor: Color.darkGrey),
                   child: Text(
                     'New!',
-                    style: TextStyle(
+                    typoGraphyStyle: TypographyStyle(
                       fontSize: 16.px,
                       color: Color.white,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
+                ),
+              ),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Text('Centered Text'),
+              ),
+              Text(
+                'Align!',
+                typoGraphyStyle: TypographyStyle(
+                  fontSize: 16.px,
+                  color: Color.red,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
             ],

@@ -11,7 +11,8 @@ extension _$TextGenerated on Text {
   };
   String? get _$styles {
     final parts = <String>[
-      if (style != null) style!.toCss(),
+      if (typoGraphyStyle != null) typoGraphyStyle!.toCss(),
+      if (interactionStyle != null) interactionStyle!.toCss(),
     ].where((s) => s.isNotEmpty);
     return parts.isEmpty ? null : parts.join('; ');
   }

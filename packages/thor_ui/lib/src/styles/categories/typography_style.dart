@@ -1,10 +1,29 @@
 import 'package:thor/thor.dart';
-import 'package:thor_ui/src/styles/styles.dart';
+import 'package:thor_ui/thor_ui.dart';
+part 'typography_style.g.dart';
 
-part 'text_style.g.dart';
-
+/// Category for typography styles: fonts, text alignment, and text decoration.
+///
+/// Subclasses: [TextStyle]
 @StyleAnnotation()
-class TextStyle {
+class TypographyStyle extends ThorStyle {
+  const TypographyStyle({
+    this.fontSize,
+    this.fontWeight,
+    this.fontStyle,
+    this.color,
+    this.textAlign,
+    this.decoration,
+    this.decorationColor,
+    this.letterSpacing,
+    this.lineHeight,
+    this.fontFamily,
+    this.overflow,
+    this.maxLines,
+    this.wordSpacing,
+    this.direction,
+  });
+
   @StylePropertyAnnotation('font-size')
   final Unit? fontSize;
   @StylePropertyAnnotation('font-weight')
@@ -27,20 +46,10 @@ class TextStyle {
   final String? fontFamily;
   @StylePropertyAnnotation('text-overflow')
   final TextOverflow? overflow;
-  final int? maxLines;
+  @StylePropertyAnnotation('word-spacing')
+  final Unit? wordSpacing;
+  @StylePropertyAnnotation('direction')
+  final TextDirection? direction;
 
-  const TextStyle({
-    this.fontSize,
-    this.fontWeight,
-    this.fontStyle,
-    this.color,
-    this.textAlign,
-    this.decoration,
-    this.decorationColor,
-    this.letterSpacing,
-    this.lineHeight,
-    this.fontFamily,
-    this.overflow,
-    this.maxLines,
-  });
+  final int? maxLines;
 }

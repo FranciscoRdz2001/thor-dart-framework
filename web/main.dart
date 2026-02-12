@@ -46,14 +46,11 @@ class _CounterState extends State<Counter> {
               Text('Welcome to Thor'),
               Box(
                 alignment: Alignment.center,
-                padding: EdgeInsets.symmetric(vertical: 50.px),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(12.px),
-                  color: Color.red,
-                ),
+                spacing: SpacingStyle(paddingTop: 50.px, paddingBottom: 50.px),
+                decoration: DecorationStyle(backgroundColor: Color.red),
                 child: Text(
                   'This is a box',
-                  style: TextStyle(
+                  typoGraphyStyle: TypographyStyle(
                     fontSize: 24.px,
                     color: Color.white,
                     fontWeight: FontWeight.extraBold,
@@ -61,11 +58,8 @@ class _CounterState extends State<Counter> {
                 ),
               ),
 
-              DecoratedBox(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(8.px),
-                  color: Color.blue,
-                ),
+              Box(
+                decoration: DecorationStyle(backgroundColor: Color.blue),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
@@ -98,7 +92,7 @@ class App extends StatelessComponent {
 }
 
 void main() {
-  final container = html.document.querySelector('#output');
+  final container = html.document.querySelector('#body');
 
   if (container == null) {
     print('Error: #app container not found');

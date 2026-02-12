@@ -8,7 +8,7 @@ class StoreCollections extends StatelessComponent {
         Row(
           children: [
             Expanded(child: Text('Collection 1')),
-            Box(width: 20.px),
+            Box(size: SizeStyle(width: 20.px)),
             Text('Collection 2'),
           ],
         ),

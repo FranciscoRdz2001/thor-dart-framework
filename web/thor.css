@@ -1,20 +1,7 @@
 .row { display:flex; flex-direction:row; min-width:0; align-items: stretch; }
 .column { display:flex; flex-direction:column; min-width:0; align-items: stretch; }
 
-
-.center { display:flex; justify-content:center; align-items:center; }
-
-.center-expand { display:flex; justify-content:center; align-items:center; flex:1 1 0; min-width:0; }
-
-
 .expanded { flex: 1 1 0; min-width: 0; min-height: 0; }
-
-
-.constrained-box {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-}
 
 .cross-axis-start {
   align-items: flex-start;
@@ -63,50 +50,30 @@
 .main-axis-size-max { align-self: stretch; }
 .main-axis-size-min { align-self: auto; }
 
-/* Alignment Class */
-.align-top-left {
-  align-items: flex-start;
-  justify-content: flex-start;
-}
+/* Align component */
+.align { display: flex; }
 
-.align-top-center {
-  align-items: flex-start;
-  justify-content: center;
-}
+/* Alignment classes (used by Align and Box) */
+.align-top-left { display: flex; align-items: flex-start; justify-content: flex-start; }
+.align-top-center { display: flex; align-items: flex-start; justify-content: center; }
+.align-top-right { display: flex; align-items: flex-start; justify-content: flex-end; }
+.align-center-left { display: flex; align-items: center; justify-content: flex-start; }
+.align-center { display: flex; align-items: center; justify-content: center; }
+.align-center-right { display: flex; align-items: center; justify-content: flex-end; }
+.align-bottom-left { display: flex; align-items: flex-end; justify-content: flex-start; }
+.align-bottom-center { display: flex; align-items: flex-end; justify-content: center; }
+.align-bottom-right { display: flex; align-items: flex-end; justify-content: flex-end; }
 
-.align-top-right {
-  align-items: flex-start;
-  justify-content: flex-end;
-}
-
-.align-center-left {
-  align-items: center;
-  justify-content: flex-start;
-}
-
+/*
+ * Hijos div (componentes bloque) se expanden al 100% dentro de
+ * cualquier contenedor con alignment. Si el hijo tiene max-width
+ * propio (via inline style), justify-content lo centra.
+ * Hijos inline (span/Text) mantienen su ancho natural y se centran.
+ */
+.align > div, [class*="align-"] > div { width: auto; }
+.Box.align-center,
 .align-center {
-  align-items: center;
-  justify-content: center;
-}
-
-.align-center-right {
-  align-items: center;
-  justify-content: flex-end;
-}
-
-.align-bottom-left {
-  align-items: flex-end;
-  justify-content: flex-start;
-}
-
-.align-bottom-center {
-  align-items: flex-end;
-  justify-content: center;
-}
-
-.align-bottom-right {
-  align-items: flex-end;
-  justify-content: flex-end;
+  width: 100%;
 }
 
 /* Stack */
@@ -117,7 +84,7 @@
   position: absolute;
   top: 0;
   left: 0;
-  right: 0;   /* 👈 esto les da ancho */
+  right: 0;
 }
 
 /* El primero define el tamaño del stack */
@@ -125,5 +92,17 @@
   position: relative;
 }
 
+/* Align dentro de Stack: absoluto para posicionar sobre otros hijos */
+.stack > .align {
+  position: absolute;
+  inset: 0;
+}
 
 .positioned { position: relative; }
+
+/* Page / Scaffold */
+.page {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
