@@ -6,6 +6,7 @@ part 'column.g.dart';
 class Column extends Flex {
   Column({
     super.children,
+    super.styleClasses,
     super.mainAxisAlignment,
     super.crossAxisAlignment,
     super.mainAxisSize,

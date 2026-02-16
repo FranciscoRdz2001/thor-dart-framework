@@ -9,5 +9,9 @@ part of 'stack.dart';
 extension _$StackGenerated on Stack {
   String get _$tag => 'div';
   String get _$className => 'stack';
-  Map<String, String> get _$attributes => {'class': _$className};
+  String get _$classNames => [
+    _$className,
+    ...styleClasses.map((s) => s.className),
+  ].map((c) => c.startsWith('.') ? c.substring(1) : c).join(' ');
+  Map<String, String> get _$attributes => {'class': _$classNames};
 }

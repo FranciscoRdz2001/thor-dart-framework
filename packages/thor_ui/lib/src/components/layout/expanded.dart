@@ -6,7 +6,7 @@ class Expanded extends SingleChildElementComponent {
   @StylePropertyAnnotation('flex', isStyle: true)
   final int flex;
 
-  const Expanded({super.key, this.flex = 1, super.child});
+  const Expanded({super.key, super.styleClasses, this.flex = 1, super.child});
 
   @override
   Component build(BuildContext context) {

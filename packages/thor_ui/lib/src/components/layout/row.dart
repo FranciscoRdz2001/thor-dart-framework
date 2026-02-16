@@ -6,6 +6,7 @@ part 'row.g.dart';
 class Row extends Flex {
   Row({
     super.children,
+    super.styleClasses,
     super.mainAxisAlignment,
     super.crossAxisAlignment,
     super.mainAxisSize,

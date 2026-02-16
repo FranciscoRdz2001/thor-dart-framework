@@ -4,6 +4,7 @@ import 'package:thor/thor.dart';
 import 'package:thor_ui/thor_ui.dart';
 
 import 'pages/store_page.dart';
+import 'styles/app_styles.dart';
 
 /// A stateful counter component.
 class Counter extends StatefulComponent {
@@ -102,6 +103,7 @@ void main() {
   final target = DomTarget(
     root: const App(),
     container: container,
+    styleSheets: [AppStyles()],
     breakpoint: Breakpoint.md,
     size: Size(
       html.window.innerWidth!.toDouble(),

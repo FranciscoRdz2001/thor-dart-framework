@@ -18,6 +18,7 @@ class Box extends SingleChildElementComponent {
 
   const Box({
     super.key,
+    super.styleClasses,
     this.spacing,
     super.child,
     this.decoration,

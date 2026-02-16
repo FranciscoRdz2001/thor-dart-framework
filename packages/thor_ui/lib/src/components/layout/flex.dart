@@ -12,6 +12,7 @@ class Flex extends MultiChildElementComponent {
     this.spacing,
     this.size,
     super.key,
+    super.styleClasses,
     List<Component>? children,
   }) : _children = children ?? [];
 

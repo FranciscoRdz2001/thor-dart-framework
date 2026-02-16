@@ -1,10 +1,16 @@
 /* ═══════════════════════════════════════════════════════════════════
  *  Thor CSS – Flutter-like layout system for the web
  *
- *  Layout properties (justify-content, align-items, alignment,
- *  mainAxisSize) are applied as inline styles by the Dart components.
- *  This stylesheet only defines structural / display rules that
- *  can't be expressed with a single inline style property.
+ *  Structural and default rules. Layout overrides (non-default
+ *  justify-content, align-items, gap, etc.) are applied inline
+ *  by the Dart components only when they differ from defaults.
+ *
+ *  Key goals:
+ *  - Match Flutter Row/Column + Expanded/Flexible semantics in CSS.
+ *  - Avoid forcing width:100% on .row/.column by default (breaks nesting).
+ *  - Prevent fixed-size boxes from shrinking in Row (Flutter-like).
+ *  - Expanded allocates remaining space as a flex-item; children are NOT
+ *    blindly forced to 100% of the parent row width (that breaks layouts).
  * ═══════════════════════════════════════════════════════════════════ */
 
 /* ─── Global reset ────────────────────────────────────────────── */
@@ -12,41 +18,130 @@
   box-sizing: border-box;
 }
 
-.box {
+/* ─── Box (Container-like) ────────────────────────────────────── */
+/* Flutter-like default for sized widgets inside Row/Column:
+   - natural size
+   - do not shrink unexpectedly (Flutter would overflow / require Flexible)
+*/
+.box, .Box {
   display: block;
-  width: 100%;
+  min-width: 0;
+  flex: 0 0 auto; /* do not grow, do not shrink */
 }
 
+/* Optional manual "fill" utility (rarely needed if you use Expanded correctly) */
+.box-fill { width: 100%; height: 100%; }
+
+/* ─── Flex item behaviors ─────────────────────────────────────── */
+.flex-none  { flex: 0 0 auto; min-width: 0; min-height: 0; } /* fixed */
+.flex-loose { flex: 0 1 auto; min-width: 0; min-height: 0; } /* Flexible(fit: loose) */
+
 /* ─── Flex containers ─────────────────────────────────────────── */
+/* IMPORTANT: Do NOT force width:100% here; it breaks nested Rows.
+   If you need a container to fill the available width, add .stretch (below),
+   or apply width via the parent constraints in your renderer. */
 .row {
   display: flex;
   flex-direction: row;
-  width: 100%;
+  align-items: flex-start;
+  justify-content: flex-start;
   min-width: 0;
 }
 
 .column {
   display: flex;
   flex-direction: column;
-  width: 100%;
+  justify-content: flex-start;
   min-width: 0;
 }
 
-/* ─── Expanded ────────────────────────────────────────────────── */
+/* When you explicitly want a widget to take the parent's width (common for root layouts) */
+.stretch { width: 100%; }
+
+/* ─── Expanded (Flutter Expanded) ─────────────────────────────── */
+/* Expanded is a flex-item that takes remaining space along the main axis. */
 .expanded {
   flex: 1 1 0;
   min-width: 0;
   min-height: 0;
 }
 
-/* ─── Align component ────────────────────────────────────────────
- *  Flutter's Align fills its parent in both dimensions.
- *  The positioning (align-items, justify-content) is inline.
- * ───────────────────────────────────────────────────────────────── */
-.align {
-  width: 100%;
-  height: 100%;
+/* ─── Default flex behavior for direct children of Row/Column ─── */
+/* In Flutter, non-flex children in a Row/Column behave like "tight to content"
+   and DO NOT shrink unless explicitly made Flexible.
+   Web flexbox shrinks by default, so we enforce "no shrink" here. */
+.row > *:not(.expanded):not(.flex-loose) {
+  flex: 0 0 auto;
+  min-width: 0;
 }
+
+.column > *:not(.expanded):not(.flex-loose) {
+  flex: 0 0 auto;
+  min-height: 0;
+}
+
+/* ─── Tight-constraint behavior inside Expanded ───────────────── */
+/* Flutter Expanded gives tight constraints along main axis to its child.
+   We apply only safe constraints (no global width:100% on every child),
+   and avoid forcing Text spans to 100% which can change layout. */
+
+/* Expanded in a Row: allow inner containers to shrink and layout properly */
+.row > .expanded > .row,
+.row > .expanded > .column,
+.row > .expanded > .align {
+  min-width: 0;
+}
+
+/* If the Expanded's direct child is a Box, it should fill the Expanded width */
+.row > .expanded > .box,
+.row > .expanded > .Box {
+  width: 100%;
+  min-width: 0;
+}
+
+/* Expanded in a Column: allow inner containers to shrink and layout properly */
+.column > .expanded > .row,
+.column > .expanded > .column,
+.column > .expanded > .align {
+  min-height: 0;
+}
+
+/* If the Expanded's direct child is a Box, it should fill the Expanded height (when height is constrained) */
+.column > .expanded > .box,
+.column > .expanded > .Box {
+  height: 100%;
+  min-height: 0;
+}
+
+/* ─── Text ───────────────────────────────────────────────────── */
+/* Your renderer uses class="Text". Give it safe defaults for flex layouts. */
+.Text, .text {
+  display: inline-block;
+  min-width: 0; /* important for ellipsis inside flex */
+}
+
+/* Optional helpers (use as needed via renderer) */
+.text-nowrap { white-space: nowrap; }
+.text-ellipsis { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* ─── Align component ─────────────────────────────────────────── */
+/* Avoid forcing width/height 100% by default; let parent constraints decide. */
+.align {
+  display: flex;
+  min-width: 0;
+  min-height: 0;
+}
+
+/* ─── Alignment utilities ─────────────────────────────────────── */
+.align-top-left      { display: flex; align-items: flex-start; justify-content: flex-start; }
+.align-top-center    { display: flex; align-items: flex-start; justify-content: center; }
+.align-top-right     { display: flex; align-items: flex-start; justify-content: flex-end; }
+.align-center-left   { display: flex; align-items: center;     justify-content: flex-start; }
+.align-center        { display: flex; align-items: center;     justify-content: center; }
+.align-center-right  { display: flex; align-items: center;     justify-content: flex-end; }
+.align-bottom-left   { display: flex; align-items: flex-end;   justify-content: flex-start; }
+.align-bottom-center { display: flex; align-items: flex-end;   justify-content: center; }
+.align-bottom-right  { display: flex; align-items: flex-end;   justify-content: flex-end; }
 
 /* ─── Stack ───────────────────────────────────────────────────── */
 .stack { position: relative; }

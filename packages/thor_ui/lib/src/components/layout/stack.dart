@@ -3,7 +3,8 @@ part 'stack.g.dart';
 
 @ComponentAnnotation('div', className: '.stack')
 class Stack extends MultiChildElementComponent {
-  Stack({super.key, List<Component>? children}) : _children = children ?? [];
+  Stack({super.key, super.styleClasses, List<Component>? children})
+      : _children = children ?? [];
 
   final List<Component> _children;
 

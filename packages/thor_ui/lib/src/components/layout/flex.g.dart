@@ -9,14 +9,20 @@ part of 'flex.dart';
 extension _$FlexGenerated on Flex {
   String get _$tag => 'div';
   String get _$className => runtimeType.toString();
+  String get _$classNames => [
+    _$className,
+    ...styleClasses.map((s) => s.className),
+  ].map((c) => c.startsWith('.') ? c.substring(1) : c).join(' ');
   Map<String, String> get _$attributes => {
-    'class': _$className,
+    'class': _$classNames,
     'style': ?_$styles,
   };
   String? get _$styles {
     final parts = <String>[
-      'justify-content: ${mainAxisAlignment.toStyle()}',
-      'align-items: ${crossAxisAlignment.toStyle()}',
+      if (mainAxisAlignment != MainAxisAlignment.start)
+        'justify-content: ${mainAxisAlignment.toStyle()}',
+      if (crossAxisAlignment != CrossAxisAlignment.start)
+        'align-items: ${crossAxisAlignment.toStyle()}',
       if (gap != null) 'gap: ${gap!.toStyle()}',
       if (spacing != null) spacing!.toCss(),
       if (size != null) size!.toCss(),

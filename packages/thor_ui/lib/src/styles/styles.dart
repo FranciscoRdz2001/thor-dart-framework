@@ -14,3 +14,6 @@ export 'color.dart';
 
 // Types (enums)
 export 'types/types.dart';
+
+// Style class builder
+export 'style_class_builder.dart';

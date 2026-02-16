@@ -114,6 +114,9 @@ extension ${className}Css on $className {
       if (field.isStatic || field.isSynthetic) continue;
       if (_hasAnnotation(field, 'StyleAnnotation')) continue;
 
+      // Skip styleClasses — handled separately via _hasStyleClassesField
+      if (field.name == 'styleClasses') continue;
+
       // Handle @ClassNameAnnotation — adds CSS class names from field values
       if (_hasAnnotation(field, 'ClassNameAnnotation')) {
         final fixedClassName = _getClassNameAnnotationClassName(field);
@@ -199,13 +202,20 @@ extension ${className}Css on $className {
       buffer.writeln("  String get _\$className => runtimeType.toString();");
     }
 
+    // Check if the class hierarchy has a styleClasses field (List<StyleClass>)
+    final hasStyleClasses = _hasStyleClassesField(classElement);
+
     // Build 'class' attribute
-    if (classNameParts.isNotEmpty) {
-      // Generate _$classNames that combines _$className + @ClassNameAnnotation values
+    if (classNameParts.isNotEmpty || hasStyleClasses) {
+      // Generate _$classNames that combines _$className + @ClassNameAnnotation
+      // values + styleClasses
       buffer.writeln('  String get _\$classNames => [');
       buffer.writeln('    _\$className,');
       for (final part in classNameParts) {
         buffer.writeln('    $part,');
+      }
+      if (hasStyleClasses) {
+        buffer.writeln('    ...styleClasses.map((s) => s.className),');
       }
       buffer.writeln(
         "  ].map((c) => c.startsWith('.') ? c.substring(1) : c).join(' ');",
@@ -261,8 +271,15 @@ extension ${className}Css on $className {
 
       final isNullable =
           field.type.nullabilitySuffix == NullabilitySuffix.question;
+
+      // Check if this field has a default value in CSS that we should skip
+      final defaultCheck = _getDefaultValueCheck(field, cssProperty);
+
       if (isNullable) {
         parts.add("if (${field.name} != null) '$cssProperty: $valueExpr'");
+      } else if (defaultCheck != null) {
+        // Only emit when different from CSS default
+        parts.add("if ($defaultCheck) '$cssProperty: $valueExpr'");
       } else {
         parts.add("'$cssProperty: $valueExpr'");
       }
@@ -460,6 +477,23 @@ extension ${className}Css on $className {
     return 'toCss';
   }
 
+  /// Returns a condition string to check if a field's value differs from its CSS default.
+  /// Returns null if the field should always be emitted.
+  String? _getDefaultValueCheck(FieldElement field, String cssProperty) {
+    // Row/Column have CSS defaults: align-items: flex-start; justify-content: flex-start
+    if (field.name == 'mainAxisAlignment' && cssProperty == 'justify-content') {
+      return '${field.name} != MainAxisAlignment.start';
+    }
+    if (field.name == 'crossAxisAlignment' && cssProperty == 'align-items') {
+      return '${field.name} != CrossAxisAlignment.start';
+    }
+    // Expanded has CSS default: flex: 1 1 0
+    if (field.name == 'flex' && cssProperty == 'flex') {
+      return '${field.name} != 1';
+    }
+    return null; // Always emit for other fields
+  }
+
   bool _hasField(InterfaceElement element, String fieldName) =>
       element.fields.any((f) => f.name == fieldName && !f.isEnumConstant);
 
@@ -469,6 +503,19 @@ extension ${className}Css on $className {
   /// Check if an enum has a specific method
   bool _hasMethodInEnum(EnumElement element, String methodName) =>
       element.methods.any((m) => m.name == methodName);
+
+  /// Returns true if the class hierarchy has a `styleClasses` field
+  /// of type `List<StyleClass>`.
+  bool _hasStyleClassesField(ClassElement classElement) {
+    for (final field in _getAllFields(classElement)) {
+      if (field.name == 'styleClasses' &&
+          !field.isStatic &&
+          !field.isSynthetic) {
+        return true;
+      }
+    }
+    return false;
+  }
 
   // ---- Field traversal ----
 

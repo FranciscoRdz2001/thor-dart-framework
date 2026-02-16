@@ -4,9 +4,13 @@
 
 extension _$TextGenerated on Text {
   String get _$tag => 'span';
-  String get _$className => runtimeType.toString();
+  String get _$className => 'text';
+  String get _$classNames => [
+    _$className,
+    ...styleClasses.map((s) => s.className),
+  ].map((c) => c.startsWith('.') ? c.substring(1) : c).join(' ');
   Map<String, String> get _$attributes => {
-    'class': _$className,
+    'class': _$classNames,
     'style': ?_$styles,
   };
   String? get _$styles {

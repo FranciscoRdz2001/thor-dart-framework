@@ -6,7 +6,10 @@ import 'package:thor/src/renderers/nodes/element_node.dart';
 /// Convenience base for stateless components that produce an HTML element
 /// with multiple children.
 abstract class MultiChildElementComponent extends StatelessComponent {
-  const MultiChildElementComponent({super.key});
+  const MultiChildElementComponent({
+    super.key,
+    super.styleClasses,
+  });
 
   String get tag;
   Map<String, String> get attrs => const {};

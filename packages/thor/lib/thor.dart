@@ -10,4 +10,5 @@ export 'src/core/core.dart';
 export 'src/elements/elements.dart';
 export 'src/renderers/renderers.dart';
 export 'src/runtime/runtime.dart';
+export 'src/styles/styles.dart';
 export 'src/targets/targets.dart';

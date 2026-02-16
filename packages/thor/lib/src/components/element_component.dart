@@ -6,7 +6,10 @@ import 'package:thor/src/renderers/nodes/element_node.dart';
 /// Convenience base for stateless components that produce a single HTML element
 /// with attributes and children.
 abstract class ElementComponent extends StatelessComponent {
-  const ElementComponent({super.key});
+  const ElementComponent({
+    super.key,
+    super.styleClasses,
+  });
 
   String get tag;
   Map<String, String> get attrs => const {};

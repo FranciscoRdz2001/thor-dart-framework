@@ -6,6 +6,7 @@ part 'positioned.g.dart';
 class Positioned extends SingleChildElementComponent {
   Positioned({
     super.key,
+    super.styleClasses,
     this.position,
     super.child,
     this.top,

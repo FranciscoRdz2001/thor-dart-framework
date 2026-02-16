@@ -3,12 +3,13 @@ import 'package:thor_ui/thor_ui.dart';
 
 part 'text.g.dart';
 
-@ComponentAnnotation('span')
+@ComponentAnnotation('span', className: 'text')
 class Text extends LeafElementComponent {
   final String data;
   const Text(
     this.data, {
     super.key,
+    super.styleClasses,
     this.typoGraphyStyle,
     this.interactionStyle,
   });

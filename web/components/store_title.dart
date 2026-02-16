@@ -1,85 +1,75 @@
 import 'package:thor/thor.dart';
 import 'package:thor_ui/thor_ui.dart';
+import '../styles/app_styles.dart';
 
 class StoreTitle extends StatelessComponent {
+  /// Component-scoped styles.
+  static final _heroGap = StyleClass('hero-gap', css([
+    SpacingStyle(gap: 16.px),
+  ]));
+
+  static final _heroRow = StyleClass('hero-row', css([
+    SpacingStyle(gap: 32.px),
+  ]));
+
+  @override
+  List<StyleClass> get componentStyles => [_heroGap, _heroRow];
+
   @override
   Component build(BuildContext context) {
     return Row(
-      gap: 20.px,
+      styleClasses: [_heroRow],
       crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Expanded(
           child: Column(
+            styleClasses: [_heroGap],
             children: [
               Text(
-                'Welcome to My Store',
-                typoGraphyStyle: TypographyStyle(
-                  fontSize: 32.px,
-                  fontWeight: FontWeight.bold,
-                ),
+                'Discover Our Latest Collection',
+                styleClasses: [AppStyles.heroTitle],
               ),
               Text(
-                'Find the best products here!',
-                typoGraphyStyle: TypographyStyle(
-                  fontSize: 18.px,
-                  color: Color.grey,
-                ),
+                'Handpicked products with premium quality. '
+                'Explore new arrivals and exclusive deals curated just for you.',
+                styleClasses: [AppStyles.heroSubtitle],
+              ),
+              Box(styleClasses: [AppStyles.spacerSm]),
+              Row(
+                gap: 12.px,
+                children: [
+                  Box(
+                    styleClasses: [AppStyles.heroCta],
+                    child: Text('Shop Now'),
+                  ),
+                ],
               ),
             ],
           ),
         ),
-
         Expanded(
           child: Stack(
             children: [
-              // Box(
-              //   size: SizeStyle(width: 500.px, height: 200.px),
-              //   decoration: DecorationStyle(backgroundColor: Color.blue),
-              // ),
-              Column(
-                children: [
-                  Box(
-                    size: SizeStyle(height: 200.px),
-                    decoration: DecorationStyle(backgroundColor: Color.red),
-                    child: Text(
-                      'Special Offer!',
-                      typoGraphyStyle: TypographyStyle(
-                        fontSize: 24.px,
-                        color: Color.white,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ],
+              Box(
+                styleClasses: [AppStyles.offerBanner],
+                alignment: Alignment.centerLeft,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  gap: 8.px,
+                  children: [
+                    Text('Special Offer!', styleClasses: [AppStyles.offerTitle]),
+                    Text('Up to 50% off this weekend', styleClasses: [AppStyles.offerSubtitle]),
+                  ],
+                ),
               ),
               Positioned(
                 position: Position.absolute,
-                left: 20.px,
-
+                right: 16.px,
+                bottom: 16.px,
                 child: Box(
-                  size: SizeStyle(width: 100.px, height: 100.px),
-                  decoration: DecorationStyle(backgroundColor: Color.darkGrey),
-                  child: Text(
-                    'New!',
-                    typoGraphyStyle: TypographyStyle(
-                      fontSize: 16.px,
-                      color: Color.white,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: Text('Centered Text'),
-              ),
-              Text(
-                'Align!',
-                typoGraphyStyle: TypographyStyle(
-                  fontSize: 16.px,
-                  color: Color.red,
-                  fontWeight: FontWeight.bold,
+                  styleClasses: [AppStyles.badge],
+                  alignment: Alignment.center,
+                  child: Text('NEW', styleClasses: [AppStyles.badgeText]),
                 ),
               ),
             ],

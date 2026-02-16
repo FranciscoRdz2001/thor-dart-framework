@@ -7,7 +7,7 @@ class Align extends SingleChildElementComponent {
   @StyleAnnotation()
   final Alignment? alignment;
 
-  const Align({required this.alignment, super.child});
+  const Align({required this.alignment, super.styleClasses, super.child});
 
   @override
   Component build(BuildContext context) {
