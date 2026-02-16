@@ -1,108 +1,72 @@
-.row { display:flex; flex-direction:row; min-width:0; align-items: stretch; }
-.column { display:flex; flex-direction:column; min-width:0; align-items: stretch; }
+/* ═══════════════════════════════════════════════════════════════════
+ *  Thor CSS – Flutter-like layout system for the web
+ *
+ *  Layout properties (justify-content, align-items, alignment,
+ *  mainAxisSize) are applied as inline styles by the Dart components.
+ *  This stylesheet only defines structural / display rules that
+ *  can't be expressed with a single inline style property.
+ * ═══════════════════════════════════════════════════════════════════ */
 
-.expanded { flex: 1 1 0; min-width: 0; min-height: 0; }
-
-.cross-axis-start {
-  align-items: flex-start;
+/* ─── Global reset ────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
 }
 
-.cross-axis-center {
-  align-items: center;
-}
-
-.cross-axis-end {
-  align-items: flex-end;
-}
-
-.cross-axis-stretch {
-  align-items: stretch;
-}
-
-.cross-axis-baseline {
-  align-items: baseline;
-}
-
-.main-axis-start {
-  justify-content: flex-start;
-}
-
-.main-axis-center {
-  justify-content: center;
-}
-
-.main-axis-end {
-  justify-content: flex-end;
-}
-
-.main-axis-space-between {
-  justify-content: space-between;
-}
-
-.main-axis-space-around {
-  justify-content: space-around;
-}
-
-.main-axis-space-evenly {
-  justify-content: space-evenly;
-}
-
-.main-axis-size-max { align-self: stretch; }
-.main-axis-size-min { align-self: auto; }
-
-/* Align component */
-.align { display: flex; }
-
-/* Alignment classes (used by Align and Box) */
-.align-top-left { display: flex; align-items: flex-start; justify-content: flex-start; }
-.align-top-center { display: flex; align-items: flex-start; justify-content: center; }
-.align-top-right { display: flex; align-items: flex-start; justify-content: flex-end; }
-.align-center-left { display: flex; align-items: center; justify-content: flex-start; }
-.align-center { display: flex; align-items: center; justify-content: center; }
-.align-center-right { display: flex; align-items: center; justify-content: flex-end; }
-.align-bottom-left { display: flex; align-items: flex-end; justify-content: flex-start; }
-.align-bottom-center { display: flex; align-items: flex-end; justify-content: center; }
-.align-bottom-right { display: flex; align-items: flex-end; justify-content: flex-end; }
-
-/*
- * Hijos div (componentes bloque) se expanden al 100% dentro de
- * cualquier contenedor con alignment. Si el hijo tiene max-width
- * propio (via inline style), justify-content lo centra.
- * Hijos inline (span/Text) mantienen su ancho natural y se centran.
- */
-.align > div, [class*="align-"] > div { width: auto; }
-.Box.align-center,
-.align-center {
+.box {
+  display: block;
   width: 100%;
 }
 
-/* Stack */
-.stack { position: relative; }
-
-/* Todos los hijos se colocan encima Y llenan el ancho del stack */
-.stack > * {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
+/* ─── Flex containers ─────────────────────────────────────────── */
+.row {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  min-width: 0;
 }
 
-/* El primero define el tamaño del stack */
+.column {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-width: 0;
+}
+
+/* ─── Expanded ────────────────────────────────────────────────── */
+.expanded {
+  flex: 1 1 0;
+  min-width: 0;
+  min-height: 0;
+}
+
+/* ─── Align component ────────────────────────────────────────────
+ *  Flutter's Align fills its parent in both dimensions.
+ *  The positioning (align-items, justify-content) is inline.
+ * ───────────────────────────────────────────────────────────────── */
+.align {
+  width: 100%;
+  height: 100%;
+}
+
+/* ─── Stack ───────────────────────────────────────────────────── */
+.stack { position: relative; }
+
+.stack > * {
+  position: absolute;
+  inset: 0;
+}
+
 .stack > *:first-child {
   position: relative;
 }
 
-/* Align dentro de Stack: absoluto para posicionar sobre otros hijos */
 .stack > .align {
   position: absolute;
   inset: 0;
 }
 
-.positioned { position: relative; }
-
-/* Page / Scaffold */
+/* ─── Page / Scaffold ─────────────────────────────────────────── */
 .page {
   display: flex;
   flex-direction: column;
-  box-sizing: border-box;
 }

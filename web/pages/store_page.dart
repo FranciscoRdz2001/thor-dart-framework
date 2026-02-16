@@ -9,17 +9,29 @@ class StorePage extends StatelessComponent {
   Component build(BuildContext context) {
     return Box(
       alignment: Alignment.center,
-      size: SizeStyle(maxWidth: 1000.px),
       child: Box(
-        child: Column(
-          children: [
-            StoreHeader(),
-            Box(size: SizeStyle(height: 40.px)),
-            StoreTitle(),
-            Box(size: SizeStyle(height: 40.px)),
-            StoreCollections(),
-            Box(size: SizeStyle(height: 100.px)),
-          ],
+        alignment: Alignment.center,
+        size: SizeStyle(maxWidth: 1000.px),
+        child: Box(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Box(
+                    size: SizeStyle(width: 20.px, height: 40.px),
+                    decoration: DecorationStyle(backgroundColor: Color.blue),
+                  ),
+                  Expanded(child: StoreHeader()),
+                ],
+              ),
+              Box(size: SizeStyle(height: 40.px)),
+              StoreTitle(),
+              Box(size: SizeStyle(height: 40.px)),
+              StoreCollections(),
+              Box(size: SizeStyle(height: 100.px)),
+            ],
+          ),
         ),
       ),
     );

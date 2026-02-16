@@ -1,5 +1,5 @@
 import 'package:thor/thor.dart';
-import 'package:thor_ui/src/components/layout/flex.dart';
+import 'package:thor_ui/thor_ui.dart';
 part 'column.g.dart';
 
 @ComponentAnnotation('div', className: '.column')
@@ -10,6 +10,8 @@ class Column extends Flex {
     super.crossAxisAlignment,
     super.mainAxisSize,
     super.gap,
+    super.spacing,
+    super.size,
   });
 
   @override
@@ -18,7 +20,7 @@ class Column extends Flex {
       tag: _$tag,
       key: key,
       children: children,
-      attributes: _$attributes,
+      attributes: applyMainAxisSize(_$attributes, 'height'),
     );
   }
 }

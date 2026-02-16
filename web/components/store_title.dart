@@ -33,11 +33,10 @@ class StoreTitle extends StatelessComponent {
         Expanded(
           child: Stack(
             children: [
-              Box(
-                size: SizeStyle(width: 500.px, height: 200.px),
-                decoration: DecorationStyle(backgroundColor: Color.blue),
-              ),
-
+              // Box(
+              //   size: SizeStyle(width: 500.px, height: 200.px),
+              //   decoration: DecorationStyle(backgroundColor: Color.blue),
+              // ),
               Column(
                 children: [
                   Box(

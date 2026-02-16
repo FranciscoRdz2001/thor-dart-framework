@@ -4,7 +4,7 @@ part 'align.g.dart';
 
 @ComponentAnnotation('div', className: '.align')
 class Align extends SingleChildElementComponent {
-  @ClassNameAnnotation()
+  @StyleAnnotation()
   final Alignment? alignment;
 
   const Align({required this.alignment, super.child});

@@ -46,10 +46,11 @@ class ThorComponentGenerator extends Generator {
       if (_hasAnnotation(field, 'StyleAnnotation')) {
         final isNullable =
             field.type.nullabilitySuffix == NullabilitySuffix.question;
+        final method = _resolveStyleMethod(field.type);
         if (isNullable) {
-          entries.add('if (${field.name} != null) ${field.name}!.toCss()');
+          entries.add('if (${field.name} != null) ${field.name}!.$method()');
         } else {
-          entries.add('${field.name}.toCss()');
+          entries.add('${field.name}.$method()');
         }
         continue;
       }
@@ -239,10 +240,11 @@ extension ${className}Css on $className {
       if (_hasAnnotation(field, 'StyleAnnotation')) {
         final isNullable =
             field.type.nullabilitySuffix == NullabilitySuffix.question;
+        final method = _resolveStyleMethod(field.type);
         if (isNullable) {
-          parts.add('if (${field.name} != null) ${field.name}!.toCss()');
+          parts.add('if (${field.name} != null) ${field.name}!.$method()');
         } else {
-          parts.add('${field.name}.toCss()');
+          parts.add('${field.name}.$method()');
         }
         continue;
       }
@@ -305,8 +307,11 @@ extension ${className}Css on $className {
       return true;
     }
 
-    // Enums with toCss() method are also CSS style types
+    // Enums with toCss() or toStyle() method are also CSS style types
     if (element is EnumElement && _hasMethodInEnum(element, 'toCss')) {
+      return true;
+    }
+    if (element is EnumElement && _hasMethodInEnum(element, 'toStyle')) {
       return true;
     }
 
@@ -441,6 +446,18 @@ extension ${className}Css on $className {
     }
 
     return null;
+  }
+
+  /// Resolves whether to call `toCss()` or `toStyle()` for a @StyleAnnotation field.
+  /// Enums with `toStyle()` use that; everything else defaults to `toCss()`.
+  String _resolveStyleMethod(DartType type) {
+    if (type is InterfaceType) {
+      final element = type.element;
+      if (element is EnumElement && _hasMethodInEnum(element, 'toStyle')) {
+        return 'toStyle';
+      }
+    }
+    return 'toCss';
   }
 
   bool _hasField(InterfaceElement element, String fieldName) =>

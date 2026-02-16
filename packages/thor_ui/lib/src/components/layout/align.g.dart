@@ -9,9 +9,14 @@ part of 'align.dart';
 extension _$AlignGenerated on Align {
   String get _$tag => 'div';
   String get _$className => 'align';
-  String get _$classNames => [
-    _$className,
-    if (alignment != null) alignment!.value,
-  ].map((c) => c.startsWith('.') ? c.substring(1) : c).join(' ');
-  Map<String, String> get _$attributes => {'class': _$classNames};
+  Map<String, String> get _$attributes => {
+    'class': _$className,
+    'style': ?_$styles,
+  };
+  String? get _$styles {
+    final parts = <String>[
+      if (alignment != null) alignment!.toStyle(),
+    ].where((s) => s.isNotEmpty);
+    return parts.isEmpty ? null : parts.join('; ');
+  }
 }

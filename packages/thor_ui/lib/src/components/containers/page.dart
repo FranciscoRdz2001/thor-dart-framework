@@ -34,10 +34,7 @@ class Page extends StatelessComponent {
 
     return ElementNode(
       tag: 'main',
-      attributes: {
-        'class': 'page',
-        'style': styles,
-      },
+      attributes: {'class': 'page', 'style': styles},
       children: child != null ? [child!] : [],
     );
   }

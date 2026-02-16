@@ -2,9 +2,9 @@ import 'package:thor/thor.dart';
 import 'package:thor_ui/thor_ui.dart';
 part 'box.g.dart';
 
-@ComponentAnnotation('div')
+@ComponentAnnotation('div', className: '.box')
 class Box extends SingleChildElementComponent {
-  @ClassNameAnnotation()
+  @StyleAnnotation()
   final Alignment? alignment;
 
   @StyleAnnotation()

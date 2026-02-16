@@ -9,16 +9,13 @@ part of 'box.dart';
 extension _$BoxGenerated on Box {
   String get _$tag => 'div';
   String get _$className => runtimeType.toString();
-  String get _$classNames => [
-    _$className,
-    if (alignment != null) alignment!.value,
-  ].map((c) => c.startsWith('.') ? c.substring(1) : c).join(' ');
   Map<String, String> get _$attributes => {
-    'class': _$classNames,
+    'class': _$className,
     'style': ?_$styles,
   };
   String? get _$styles {
     final parts = <String>[
+      if (alignment != null) alignment!.toStyle(),
       if (spacing != null) spacing!.toCss(),
       if (size != null) size!.toCss(),
       if (decoration != null) decoration!.toCss(),
